@@ -1,6 +1,10 @@
 terraform {
   required_version = ">=0.12.26"
+  backend "gcs" {
+  bucket = "tf-state-pihole-ha"
+  }
 }
+
 
 provider "google" {
   version = "~> 3.11"
