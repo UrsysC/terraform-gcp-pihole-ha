@@ -19,10 +19,6 @@
         name: docker
         state: started
         enabled: yes
-    - name: "install EPEL for pip"
-      yum:
-        name: epel-release
-        state: latest
     - name: "install pip"
       yum:
         name: pip
