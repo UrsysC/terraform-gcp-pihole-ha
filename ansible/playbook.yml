@@ -42,5 +42,4 @@
 #
     - name: "test playbook"
       shell: |
-        echo "ansible playbook ran" > /etc/ansible_playbook_ran
-      creates: true
+        echo "ansible playbook ran" > /opt/ansible_playbook_ran
