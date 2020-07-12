@@ -5,7 +5,7 @@ resource "google_compute_instance" "pihole_a_instance" {
   can_ip_forward = true
   boot_disk {
     initialize_params {
-      image = "centos-cloud/centos-8"
+      image = "centos-cloud/centos-7"
       type  = "pd-ssd"
       size  = "20"
     }
@@ -19,10 +19,7 @@ resource "google_compute_instance" "pihole_a_instance" {
   }
 
   metadata_startup_script = file("scripts/startup.sh")
-
-}
-
-resource "google_compute_project_metadata_item" "serverIp" {
-  key   = "serverIp"
-  value = google_compute_address.pihole_a_external_address.address
+  metadata = {
+    serverIp = google_compute_address.pihole_a_external_address.address
+  }
 }
