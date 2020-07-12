@@ -1,6 +1,6 @@
 resource "google_compute_instance" "pihole_a_instance" {
   name           = "pihole-a"
-  machine_type   = "f1-micro"
+  machine_type   = "g1-small"
   zone           = join("-", [var.region, "a"])
   can_ip_forward = true
   boot_disk {
@@ -22,7 +22,7 @@ resource "google_compute_instance" "pihole_a_instance" {
 
 }
 
-resource "google_compute_project_metadata_item" "default" {
-  key   = "my_metadata"
-  value = "my_value_custom"
+resource "google_compute_project_metadata_item" "serverIp" {
+  key   = "serverIp"
+  value = google_compute_address.pihole_a_external_address.address
 }

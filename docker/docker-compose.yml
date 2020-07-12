@@ -8,12 +8,14 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "67:67/udp"
+#only needed for DHCP
+#      - "67:67/udp"
       - "80:80/tcp"
       - "443:443/tcp"
     environment:
       TZ: 'America/Chicago'
-      # WEBPASSWORD: 'set a secure password here or it will be random'
+      WEBPASSWORD: 'testpass'
+      ServerIP:
     # Volumes store your data between container upgrades
     volumes:
        - './etc-pihole/:/etc/pihole/'
@@ -26,12 +28,3 @@ services:
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
-    nginx:
-      image: nginx:1.15-alpine
-      ports:
-        - "80:80"
-        - "443:443"
-      volumes:
-        - ./data/nginx:/etc/nginx/conf.d
-    certbot:
-      image: certbot/certbot

@@ -1,0 +1,50 @@
+--- # installs and configures docker
+-   hosts: localhost
+    become: yes
+    tasks:
+    - name: Install yum utils
+      yum:
+        name: yum-utils
+        state: latest
+    - name: Add Docker repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+    - name: "install docker"
+      yum:
+        name: docker-ce
+        state: latest
+    - name: "start docker service"
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: "install EPEL for pip"
+      yum:
+        name: epel-release
+        state: latest
+    - name: "install pip"
+      yum:
+        name: pip
+        state: latest
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+#    - name: Run PiHole Container
+#      docker_container:
+#        name: pihole
+#        image: pihole/pihole:latest
+#        state: started
+#        networks:
+#
+#        ports:
+#          - ""
+#        env:
+#          TZ: 'America/Chicago'
+#          WEBPASSWORD: 'testpass'
+#          ServerIP:
+#
+    - name: "test playbook"
+      shell: |
+        echo "ansible playbook ran" > /etc/ansible_playbook_ran
+      creates: true

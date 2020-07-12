@@ -10,7 +10,7 @@ resource "google_compute_subnetwork" "pihole_subnet_a" {
   region        = var.region
   network       = google_compute_network.pihole_vpc.id
 }
-
+#restricts all traffic to be only from your public IP address
 resource "google_compute_firewall" "pihole_ingress_rules" {
   name    = "pihole-ingress-fw"
   network = google_compute_network.pihole_vpc.name
@@ -40,7 +40,7 @@ resource "google_compute_firewall" "allow-ssh-for-troubleshooting" {
     protocol = "tcp"
     ports    = ["22"]
   }
-  priority = 1001
+  priority = 1000
 }
 
 resource "google_compute_firewall" "pihole_egress_rules" {
